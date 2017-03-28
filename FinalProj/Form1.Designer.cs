@@ -95,14 +95,13 @@
             this.textBox2.Size = new System.Drawing.Size(123, 20);
             this.textBox2.TabIndex = 5;
             this.textBox2.Visible = false;
-            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             // 
             // confirmButton
             // 
             this.confirmButton.Location = new System.Drawing.Point(529, 137);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 6;
+            this.confirmButton.TabIndex = 7;
             this.confirmButton.Text = "Confirm";
             this.confirmButton.UseVisualStyleBackColor = true;
             this.confirmButton.Visible = false;
@@ -114,7 +113,7 @@
             this.label1.Location = new System.Drawing.Point(537, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
-            this.label1.TabIndex = 7;
+            this.label1.TabIndex = 8;
             this.label1.Text = "First Name";
             this.label1.Visible = false;
             // 
@@ -124,7 +123,7 @@
             this.label2.Location = new System.Drawing.Point(536, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
-            this.label2.TabIndex = 8;
+            this.label2.TabIndex = 9;
             this.label2.Text = "Last Name";
             this.label2.Visible = false;
             // 
@@ -133,7 +132,7 @@
             this.cancelButton.Location = new System.Drawing.Point(529, 166);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 9;
+            this.cancelButton.TabIndex = 10;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Visible = false;
@@ -144,7 +143,7 @@
             this.textBox3.Location = new System.Drawing.Point(505, 111);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(123, 20);
-            this.textBox3.TabIndex = 10;
+            this.textBox3.TabIndex = 6;
             this.textBox3.Visible = false;
             // 
             // label3

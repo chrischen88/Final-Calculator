@@ -75,14 +75,10 @@ namespace FinalProj
             refreshStudentTable();
         }
 
+
         private void button3_Click(object sender, EventArgs e)
         {
-            
-        }
-
-        private void textBox2_KeyDown(object sender, KeyEventArgs e)
-        {
-            textBox3.Focus();
+            this.Close();
         }
     }
 }
