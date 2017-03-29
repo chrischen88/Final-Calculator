@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.addStudent = new System.Windows.Forms.Button();
+            this.helpButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.confirmButton = new System.Windows.Forms.Button();
@@ -40,45 +40,53 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.deleteStudent = new System.Windows.Forms.Button();
+            this.backtoStudents = new System.Windows.Forms.Button();
+            this.addClass = new System.Windows.Forms.Button();
+            this.deleteClass = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 9);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 33);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(485, 322);
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(485, 298);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
-            // button1
+            // addStudent
             // 
-            this.button1.Location = new System.Drawing.Point(505, 249);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Add Student";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.addStudent.Location = new System.Drawing.Point(505, 221);
+            this.addStudent.Name = "addStudent";
+            this.addStudent.Size = new System.Drawing.Size(123, 23);
+            this.addStudent.TabIndex = 1;
+            this.addStudent.Text = "Add Student";
+            this.addStudent.UseVisualStyleBackColor = true;
+            this.addStudent.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // helpButton
             // 
-            this.button2.Location = new System.Drawing.Point(505, 278);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Edit Student";
-            this.button2.UseVisualStyleBackColor = true;
+            this.helpButton.Location = new System.Drawing.Point(505, 279);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(123, 23);
+            this.helpButton.TabIndex = 2;
+            this.helpButton.Text = "Help";
+            this.helpButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // closeButton
             // 
-            this.button3.Location = new System.Drawing.Point(505, 308);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Close";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.closeButton.Location = new System.Drawing.Point(505, 308);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(123, 23);
+            this.closeButton.TabIndex = 3;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.button3_Click);
             // 
             // textBox1
             // 
@@ -156,11 +164,76 @@
             this.label3.Text = "Grade";
             this.label3.Visible = false;
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(59, 7);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(156, 20);
+            this.textBox4.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Search";
+            // 
+            // deleteStudent
+            // 
+            this.deleteStudent.Location = new System.Drawing.Point(505, 250);
+            this.deleteStudent.Name = "deleteStudent";
+            this.deleteStudent.Size = new System.Drawing.Size(123, 23);
+            this.deleteStudent.TabIndex = 15;
+            this.deleteStudent.Text = "Delete Student";
+            this.deleteStudent.UseVisualStyleBackColor = true;
+            this.deleteStudent.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // backtoStudents
+            // 
+            this.backtoStudents.Location = new System.Drawing.Point(505, 308);
+            this.backtoStudents.Name = "backtoStudents";
+            this.backtoStudents.Size = new System.Drawing.Size(123, 23);
+            this.backtoStudents.TabIndex = 16;
+            this.backtoStudents.Text = "Back";
+            this.backtoStudents.UseVisualStyleBackColor = true;
+            this.backtoStudents.Visible = false;
+            this.backtoStudents.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // addClass
+            // 
+            this.addClass.Location = new System.Drawing.Point(505, 221);
+            this.addClass.Name = "addClass";
+            this.addClass.Size = new System.Drawing.Size(123, 23);
+            this.addClass.TabIndex = 17;
+            this.addClass.Text = "Add Class";
+            this.addClass.UseVisualStyleBackColor = true;
+            this.addClass.Visible = false;
+            this.addClass.Click += new System.EventHandler(this.addClass_Click);
+            // 
+            // deleteClass
+            // 
+            this.deleteClass.Location = new System.Drawing.Point(505, 250);
+            this.deleteClass.Name = "deleteClass";
+            this.deleteClass.Size = new System.Drawing.Size(123, 23);
+            this.deleteClass.TabIndex = 18;
+            this.deleteClass.Text = "Delete Class";
+            this.deleteClass.UseVisualStyleBackColor = true;
+            this.deleteClass.Visible = false;
+            this.deleteClass.Click += new System.EventHandler(this.deleteClass_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 347);
+            this.Controls.Add(this.deleteClass);
+            this.Controls.Add(this.addClass);
+            this.Controls.Add(this.backtoStudents);
+            this.Controls.Add(this.deleteStudent);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.cancelButton);
@@ -169,9 +242,9 @@
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.helpButton);
+            this.Controls.Add(this.addStudent);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "GPA Calculator";
@@ -184,9 +257,9 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button addStudent;
+        private System.Windows.Forms.Button helpButton;
+        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button confirmButton;
@@ -195,6 +268,12 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button deleteStudent;
+        private System.Windows.Forms.Button backtoStudents;
+        private System.Windows.Forms.Button addClass;
+        private System.Windows.Forms.Button deleteClass;
     }
 }
 
