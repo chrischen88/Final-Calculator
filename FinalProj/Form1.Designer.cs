@@ -46,6 +46,16 @@
             this.backtoStudents = new System.Windows.Forms.Button();
             this.addClass = new System.Windows.Forms.Button();
             this.deleteClass = new System.Windows.Forms.Button();
+            this.Semester1Grade = new System.Windows.Forms.Label();
+            this.Semester2Grade = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.Exempted1 = new System.Windows.Forms.CheckBox();
+            this.Exempted2 = new System.Windows.Forms.CheckBox();
+            this.AddAverage = new System.Windows.Forms.Button();
+            this.CancelAverage = new System.Windows.Forms.Button();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.firstNameText = new System.Windows.Forms.Label();
+            this.lastNameText = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,6 +180,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(156, 20);
             this.textBox4.TabIndex = 13;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label4
             // 
@@ -203,7 +214,7 @@
             // 
             // addClass
             // 
-            this.addClass.Location = new System.Drawing.Point(505, 221);
+            this.addClass.Location = new System.Drawing.Point(504, 221);
             this.addClass.Name = "addClass";
             this.addClass.Size = new System.Drawing.Size(123, 23);
             this.addClass.TabIndex = 17;
@@ -223,11 +234,121 @@
             this.deleteClass.Visible = false;
             this.deleteClass.Click += new System.EventHandler(this.deleteClass_Click);
             // 
+            // Semester1Grade
+            // 
+            this.Semester1Grade.AutoSize = true;
+            this.Semester1Grade.Location = new System.Drawing.Point(502, 17);
+            this.Semester1Grade.Name = "Semester1Grade";
+            this.Semester1Grade.Size = new System.Drawing.Size(103, 13);
+            this.Semester1Grade.TabIndex = 19;
+            this.Semester1Grade.Text = "Semester 1 Average";
+            this.Semester1Grade.Visible = false;
+            // 
+            // Semester2Grade
+            // 
+            this.Semester2Grade.AutoSize = true;
+            this.Semester2Grade.Location = new System.Drawing.Point(503, 79);
+            this.Semester2Grade.Name = "Semester2Grade";
+            this.Semester2Grade.Size = new System.Drawing.Size(103, 13);
+            this.Semester2Grade.TabIndex = 20;
+            this.Semester2Grade.Text = "Semester 2 Average";
+            this.Semester2Grade.Visible = false;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(505, 33);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(123, 20);
+            this.textBox5.TabIndex = 21;
+            this.textBox5.Visible = false;
+            // 
+            // Exempted1
+            // 
+            this.Exempted1.AutoSize = true;
+            this.Exempted1.Location = new System.Drawing.Point(505, 59);
+            this.Exempted1.Name = "Exempted1";
+            this.Exempted1.Size = new System.Drawing.Size(79, 17);
+            this.Exempted1.TabIndex = 22;
+            this.Exempted1.Text = "Exempted?";
+            this.Exempted1.UseVisualStyleBackColor = true;
+            this.Exempted1.Visible = false;
+            // 
+            // Exempted2
+            // 
+            this.Exempted2.AutoSize = true;
+            this.Exempted2.Location = new System.Drawing.Point(506, 125);
+            this.Exempted2.Name = "Exempted2";
+            this.Exempted2.Size = new System.Drawing.Size(79, 17);
+            this.Exempted2.TabIndex = 24;
+            this.Exempted2.Text = "Exempted?";
+            this.Exempted2.UseVisualStyleBackColor = true;
+            this.Exempted2.Visible = false;
+            // 
+            // AddAverage
+            // 
+            this.AddAverage.Location = new System.Drawing.Point(529, 148);
+            this.AddAverage.Name = "AddAverage";
+            this.AddAverage.Size = new System.Drawing.Size(75, 23);
+            this.AddAverage.TabIndex = 24;
+            this.AddAverage.Text = "Add";
+            this.AddAverage.UseVisualStyleBackColor = true;
+            this.AddAverage.Visible = false;
+            this.AddAverage.Click += new System.EventHandler(this.AddAverage_Click);
+            // 
+            // CancelAverage
+            // 
+            this.CancelAverage.Location = new System.Drawing.Point(506, 308);
+            this.CancelAverage.Name = "CancelAverage";
+            this.CancelAverage.Size = new System.Drawing.Size(122, 23);
+            this.CancelAverage.TabIndex = 25;
+            this.CancelAverage.Text = "Cancel";
+            this.CancelAverage.UseVisualStyleBackColor = true;
+            this.CancelAverage.Visible = false;
+            this.CancelAverage.Click += new System.EventHandler(this.CancelAverage_Click);
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(504, 99);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(124, 20);
+            this.textBox6.TabIndex = 23;
+            this.textBox6.Visible = false;
+            // 
+            // firstNameText
+            // 
+            this.firstNameText.AutoSize = true;
+            this.firstNameText.Location = new System.Drawing.Point(221, 10);
+            this.firstNameText.Name = "firstNameText";
+            this.firstNameText.Size = new System.Drawing.Size(32, 13);
+            this.firstNameText.TabIndex = 26;
+            this.firstNameText.Text = "First: ";
+            this.firstNameText.Visible = false;
+            // 
+            // lastNameText
+            // 
+            this.lastNameText.AutoSize = true;
+            this.lastNameText.Location = new System.Drawing.Point(359, 10);
+            this.lastNameText.Name = "lastNameText";
+            this.lastNameText.Size = new System.Drawing.Size(33, 13);
+            this.lastNameText.TabIndex = 27;
+            this.lastNameText.Text = "Last: ";
+            this.lastNameText.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 347);
+            this.Controls.Add(this.lastNameText);
+            this.Controls.Add(this.firstNameText);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.CancelAverage);
+            this.Controls.Add(this.AddAverage);
+            this.Controls.Add(this.Exempted2);
+            this.Controls.Add(this.Exempted1);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.Semester2Grade);
+            this.Controls.Add(this.Semester1Grade);
             this.Controls.Add(this.deleteClass);
             this.Controls.Add(this.addClass);
             this.Controls.Add(this.backtoStudents);
@@ -274,6 +395,16 @@
         private System.Windows.Forms.Button backtoStudents;
         private System.Windows.Forms.Button addClass;
         private System.Windows.Forms.Button deleteClass;
+        private System.Windows.Forms.Label Semester1Grade;
+        private System.Windows.Forms.Label Semester2Grade;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.CheckBox Exempted1;
+        private System.Windows.Forms.CheckBox Exempted2;
+        private System.Windows.Forms.Button AddAverage;
+        private System.Windows.Forms.Button CancelAverage;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label firstNameText;
+        private System.Windows.Forms.Label lastNameText;
     }
 }
 

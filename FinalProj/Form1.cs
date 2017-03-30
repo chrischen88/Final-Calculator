@@ -127,14 +127,30 @@ namespace FinalProj
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow r = dataGridView1.SelectedRows[0];
-            refreshStudentClassTable(r.Cells["lastName"].Value.ToString(), r.Cells["firstName"].Value.ToString());
-            backtoStudents.Visible = true;
-            addStudent.Visible = false;
-            deleteStudent.Visible = false;
-            closeButton.Visible = false;
-            addClass.Visible = true;
-            deleteClass.Visible = true;
+            if(addStudent.Visible)
+            {
+                DataGridViewRow r = dataGridView1.SelectedRows[0];
+                firstNameText.Text = firstNameText.Text + r.Cells["firstName"].Value.ToString();
+                lastNameText.Text = lastNameText.Text + r.Cells["lastName"].Value.ToString();
+                refreshStudentClassTable(r.Cells["lastName"].Value.ToString(), r.Cells["firstName"].Value.ToString());
+                firstNameText.Visible = true;
+                lastNameText.Visible = true;
+                backtoStudents.Visible = true;
+                addStudent.Visible = false;
+                deleteStudent.Visible = false;
+                closeButton.Visible = false;
+                addClass.Visible = true;
+                deleteClass.Visible = true;
+                label1.Visible = false;
+                label2.Visible = false;
+                textBox1.Visible = false;
+                textBox2.Visible = false;
+                textBox3.Visible = false;
+                label3.Visible = false;
+                confirmButton.Visible = false;
+                cancelButton.Visible = false;
+                textBox1.Text = textBox2.Text = textBox3.Text = "";
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -146,16 +162,110 @@ namespace FinalProj
             closeButton.Visible = true;
             addClass.Visible = false;
             deleteClass.Visible = false;
+            firstNameText.Visible = false;
+            lastNameText.Visible = false;
+            firstNameText.Text = "First: ";
+            lastNameText.Text = "Last: ";
         }
 
         private void addClass_Click(object sender, EventArgs e)
         {
-
+            Semester1Grade.Visible = true;
+            Semester2Grade.Visible = true;
+            textBox6.Visible = true;
+            textBox5.Visible = true;
+            Exempted1.Visible = true;
+            Exempted2.Visible = true;
+            AddAverage.Visible = true;
+            CancelAverage.Visible = true;
+            addClass.Visible = false;
+            deleteClass.Visible = false;
+            backtoStudents.Visible = false;
+            class_con.Open();
+            SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM ClassWeights", class_con);
+            DataTable dt = new DataTable();
+            sqlData.Fill(dt);
+            this.dataGridView1.DataSource = dt;
+            class_con.Close();
         }
 
         private void deleteClass_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if(Semester1Grade.Visible)
+            {
+                try
+                {
+                    class_con.Open();
+                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("select * from ClassWeights WHERE className LIKE '%" + textBox4.Text + "%'", class_con);
+                    DataTable dt = new DataTable();
+                    sqlData.Fill(dt);
+                    this.dataGridView1.DataSource = dt;
+                    class_con.Close();
+                }
+                catch(Exception e1)
+                { }
+            }
+            else if(addStudent.Visible)
+            {
+                try
+                {
+                    student_con.Open();
+                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("select * from students WHERE lastName LIKE '%" + textBox4.Text + "%' OR firstName LIKE '%" + textBox4.Text + "%'", student_con);
+                    DataTable dt = new DataTable();
+                    sqlData.Fill(dt);
+                    this.dataGridView1.DataSource = dt;
+                    student_con.Close();
+                }
+                catch(Exception e1)
+                { }
+            }
+        }
+
+        private void CancelAverage_Click(object sender, EventArgs e)
+        {
+            Semester1Grade.Visible = false;
+            Semester2Grade.Visible = false;
+            textBox6.Visible = false;
+            textBox5.Visible = false;
+            Exempted1.Visible = false;
+            Exempted2.Visible = false;
+            AddAverage.Visible = false;
+            CancelAverage.Visible = false;
+            addClass.Visible = true;
+            deleteClass.Visible = true;
+            backtoStudents.Visible = true;
+            textBox5.Text = textBox6.Text = "";
+            String fn = firstNameText.Text.Split(new char[1] { (char)32 })[1];
+            String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
+            refreshStudentClassTable(ln, fn);
+        }
+
+        private void AddAverage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                student_con.Open();
+                String fn = firstNameText.Text.Split(new char[1] { (char)32 })[1];
+                String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
+                if(dataGridView1.SelectedRows.Count==1)
+                {
+                    DataGridViewRow r = dataGridView1.SelectedRows[0];
+                    if (textBox5.Text.Length > 0)
+                    {
+                        command = new SQLiteCommand("INSERT INTO classes" + ln + fn + "(class, average, tier, exempted) VALUES ('" + r.Cells["className"].Value + " Semester 1', " + textBox5.Text + ", "
+                            + r.Cells["tier"].Value + ", '" + (Exempted1.Checked ? "YES" : "NO") + "')", student_con);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                student_con.Close();
+            }
+            catch(Exception e1)
+            { }
         }
     }
 }
