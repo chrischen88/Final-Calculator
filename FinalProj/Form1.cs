@@ -301,54 +301,7 @@ namespace FinalProj
 
         private void calculateGPA()
         {
-            try
-            {
-                
-                student_con.Open();
-                weight_con.Open();
-                double total = 0;
-                int count = 0;
-                double totalCredits = 0;
-                if (dataGridView1.Rows.Count > 0)
-                {
-                    foreach (DataGridViewRow r in dataGridView1.Rows)
-                    {
-                        int tier = Convert.ToInt32(r.Cells["tier"].Value);
-                        int average = Convert.ToInt32(r.Cells["average"].Value);
-                        String exempted = (String)r.Cells["exempted"].Value;
-                        if (average > 70)
-                        {
-                            if (exempted.Equals("NO"))
-                            {
-                                if (average >= 97) command = new SQLiteCommand("select g97 from averages where tier = " + tier, weight_con);
-                                else if (average >= 93) command = new SQLiteCommand("SELECT g93 FROM averages WHERE tier = " + tier, weight_con);
-                                else if (average >= 90) command = new SQLiteCommand("SELECT g90 FROM averages WHERE tier = " + tier, weight_con);
-                                else if (average >= 87) command = new SQLiteCommand("SELECT g87 FROM averages WHERE tier = " + tier, weight_con);
-                                else if (average >= 83) command = new SQLiteCommand("SELECT g83 FROM averages WHERE tier = " + tier, weight_con);
-                                else if (average >= 80) command = new SQLiteCommand("SELECT g80 FROM averages WHERE tier = " + tier, weight_con);
-                                else if (average >= 77) command = new SQLiteCommand("SELECT g77 FROM averages WHERE tier = " + tier, weight_con);
-                                else if (average >= 73) command = new SQLiteCommand("SELECT g73 FROM averages WHERE tier = " + tier, weight_con);
-                                else command = new SQLiteCommand("SELECT g71 FROM averages WHERE tier = " + tier, weight_con);
-                                total += Convert.ToDouble(command.ExecuteScalar());
-                                count++;
-                            }
-                            totalCredits += 0.5;
-                        }
-                    }
-                    if (count > 0)
-                    {
-                        total /= count;
-                    }
-                }
-                command = new SQLiteCommand("UPDATE students SET GPA = " + Math.Round(total, 3) + " WHERE firstName = '" + fn + "' AND lastName = '" + ln + "'", student_con);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("UPDATE students SET credits = " + totalCredits + " WHERE firstName = '" + fn + "' AND lastName = '" + ln + "'", student_con);
-                command.ExecuteNonQuery();
-                Debug.WriteLine("Current GPA: " + Math.Round(total, 3));
-                student_con.Close();
-                weight_con.Close();
-            }
-            catch (Exception e1) { Debug.WriteLine("Update failed"); }
+            
         }
     }
 }
