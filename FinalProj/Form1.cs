@@ -26,6 +26,7 @@ namespace FinalProj
             class_con = new SQLiteConnection("DataSource = ClassWeight.db");
             weight_con = new SQLiteConnection("DataSource = weightAverage.sqlite");
             refreshStudentTable();
+            calculateGPA();
         }
 
         public void refreshStudentTable()
@@ -39,7 +40,7 @@ namespace FinalProj
                 this.dataGridView1.DataSource = table;
                 student_con.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             { }
         }
 
@@ -60,7 +61,7 @@ namespace FinalProj
             textBox1.Visible = true;
             textBox2.Visible = true;
             textBox3.Visible = true;
-            label3.Visible =true;
+            label3.Visible = true;
             confirmButton.Visible = true;
             cancelButton.Visible = true;
         }
@@ -80,11 +81,11 @@ namespace FinalProj
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            if(label1.Visible)
+            if (label1.Visible)
             {
                 student_con.Open();
                 command = new SQLiteCommand("INSERT INTO students(lastName, firstName, grade, GPA, credits) VALUES ('" + textBox2.Text + "', '" + textBox1.Text + "' , " + textBox3.Text +
-                    ", '" + 0.0 + "', " + 0 + ")",student_con);
+                    ", '" + 0.0 + "', " + 0 + ")", student_con);
                 command.ExecuteNonQuery();
                 command = new SQLiteCommand("CREATE TABLE classes" + textBox2.Text + textBox1.Text + " (class TEXT, average INT, tier INT, exempted TEXT)", student_con);
                 command.ExecuteNonQuery();
@@ -124,13 +125,13 @@ namespace FinalProj
                 student_con.Close();
                 refreshStudentTable();
             }
-            catch(Exception e1)
+            catch (Exception e1)
             { }
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(addStudent.Visible)
+            if (addStudent.Visible)
             {
                 DataGridViewRow r = dataGridView1.SelectedRows[0];
                 firstNameText.Text = firstNameText.Text + r.Cells["firstName"].Value.ToString();
@@ -201,9 +202,9 @@ namespace FinalProj
                 String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
                 if (dataGridView1.SelectedRows.Count >= 1)
                 {
-                    foreach(DataGridViewRow r in dataGridView1.SelectedRows)
+                    foreach (DataGridViewRow r in dataGridView1.SelectedRows)
                     {
-                        command = new SQLiteCommand("DELETE FROM classes"+ln+fn+" WHERE class = '" +r.Cells["class"] + "' AND average = " + r.Cells["average"] , student_con);
+                        command = new SQLiteCommand("DELETE FROM classes" + ln + fn + " WHERE class = '" + r.Cells["class"] + "' AND average = " + r.Cells["average"], student_con);
                         command.ExecuteNonQuery();
                     }
                     SQLiteDataAdapter sqlData = new SQLiteDataAdapter("select * from students WHERE lastName LIKE '%" + textBox4.Text + "%' OR firstName LIKE '%" + textBox4.Text + "%'", student_con);
@@ -219,7 +220,7 @@ namespace FinalProj
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            if(Semester1Grade.Visible)
+            if (Semester1Grade.Visible)
             {
                 try
                 {
@@ -230,10 +231,10 @@ namespace FinalProj
                     this.dataGridView1.DataSource = dt;
                     class_con.Close();
                 }
-                catch(Exception e1)
+                catch (Exception e1)
                 { }
             }
-            else if(addStudent.Visible)
+            else if (addStudent.Visible)
             {
                 try
                 {
@@ -244,7 +245,7 @@ namespace FinalProj
                     this.dataGridView1.DataSource = dt;
                     student_con.Close();
                 }
-                catch(Exception e1)
+                catch (Exception e1)
                 { }
             }
         }
@@ -275,7 +276,7 @@ namespace FinalProj
                 student_con.Open();
                 String fn = firstNameText.Text.Split(new char[1] { (char)32 })[1];
                 String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
-                if(dataGridView1.SelectedRows.Count==1)
+                if (dataGridView1.SelectedRows.Count == 1)
                 {
                     DataGridViewRow r = dataGridView1.SelectedRows[0];
                     if (textBox5.Text.Length > 0)
@@ -295,13 +296,80 @@ namespace FinalProj
                 }
                 student_con.Close();
             }
-            catch(Exception e1)
+            catch (Exception e1)
             { }
         }
 
         private void calculateGPA()
         {
-            
+            student_con.Open();
+            weight_con.Open();
+            try
+            {
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    
+                    String ln = (String)row.Cells["lastName"].Value;
+                    String fn = (String)row.Cells["firstName"].Value;
+                    Debug.WriteLine(ln + fn);
+                    DataTable dt = new DataTable();
+                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM classes" + ln + fn , student_con);
+                    sqlData.Fill(dt);
+                    double total = 0;
+                    int count = 0;
+                    double totalCredits = 0;
+                    Debug.WriteLine("hell");
+                    if (dt.Rows.Count > 0)
+                    {
+                        Debug.WriteLine("hell yah");
+                        foreach (DataRow r in dt.Rows)
+                        {
+                            int tier = Convert.ToInt32(r["tier"]);
+                            int average = Convert.ToInt32(r["average"]);
+                            String exempted = (String)r["exempted"];
+                            if (average > 70)
+                            {
+                                if (exempted.Equals("NO"))
+                                {
+                                    if (average >= 97) command = new SQLiteCommand("select g97 from averages where tier = " + tier, weight_con);
+                                    else if (average >= 93) command = new SQLiteCommand("SELECT g93 FROM averages WHERE tier = " + tier, weight_con);
+                                    else if (average >= 90) command = new SQLiteCommand("SELECT g90 FROM averages WHERE tier = " + tier, weight_con);
+                                    else if (average >= 87) command = new SQLiteCommand("SELECT g87 FROM averages WHERE tier = " + tier, weight_con);
+                                    else if (average >= 83) command = new SQLiteCommand("SELECT g83 FROM averages WHERE tier = " + tier, weight_con);
+                                    else if (average >= 80) command = new SQLiteCommand("SELECT g80 FROM averages WHERE tier = " + tier, weight_con);
+                                    else if (average >= 77) command = new SQLiteCommand("SELECT g77 FROM averages WHERE tier = " + tier, weight_con);
+                                    else if (average >= 73) command = new SQLiteCommand("SELECT g73 FROM averages WHERE tier = " + tier, weight_con);
+                                    else command = new SQLiteCommand("SELECT g71 FROM averages WHERE tier = " + tier, weight_con);
+                                    total += Convert.ToDouble(command.ExecuteScalar());
+                                    count++;
+                                }
+                                totalCredits += 0.5;
+                            }
+                        }
+                        if (count > 0)
+                        {
+                            total /= count;
+                        }
+                    }
+                    command = new SQLiteCommand("UPDATE students SET GPA = " + Math.Round(total, 3) + " WHERE firstName = '" + fn + "' AND lastName = '" + ln + "'", student_con);
+                    command.ExecuteNonQuery();
+                    command = new SQLiteCommand("UPDATE students SET credits = " + totalCredits + " WHERE firstName = '" + fn + "' AND lastName = '" + ln + "'", student_con);
+                    command.ExecuteNonQuery();
+                    Debug.WriteLine("Current GPA: " + Math.Round(total, 3));
+                }
+
+                refreshStudentTable();
+            }
+            catch (Exception e1)
+            {
+                Debug.WriteLine("help");
+            }
+            student_con.Close();
+            weight_con.Close();
         }
     }
 }
+
+
+
+
