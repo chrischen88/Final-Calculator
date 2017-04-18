@@ -41,7 +41,7 @@ namespace FinalProj
                 student_con.Close();
             }
             catch (Exception e)
-            { }
+            { Debug.WriteLine("HELP"); }
         }
 
         private void refreshStudentClassTable(String ln, String fn)
@@ -195,27 +195,28 @@ namespace FinalProj
 
         private void deleteClass_Click(object sender, EventArgs e)
         {
+            student_con.Open();
             try
             {
-                student_con.Open();
                 String fn = firstNameText.Text.Split(new char[1] { (char)32 })[1];
                 String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
                 if (dataGridView1.SelectedRows.Count >= 1)
                 {
                     foreach (DataGridViewRow r in dataGridView1.SelectedRows)
                     {
-                        command = new SQLiteCommand("DELETE FROM classes" + ln + fn + " WHERE class = '" + r.Cells["class"] + "' AND average = " + r.Cells["average"], student_con);
+                        command = new SQLiteCommand("DELETE FROM classes" + ln + fn + " WHERE class = '" + r.Cells["class"].Value + "' AND average = " + r.Cells["average"].Value, student_con);
                         command.ExecuteNonQuery();
                     }
-                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("select * from students WHERE lastName LIKE '%" + textBox4.Text + "%' OR firstName LIKE '%" + textBox4.Text + "%'", student_con);
+                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("select * from classes"+ln+fn, student_con);
                     DataTable dt = new DataTable();
                     sqlData.Fill(dt);
                     this.dataGridView1.DataSource = dt;
                 }
-                student_con.Close();
+                
             }
             catch (Exception e1)
             { Debug.WriteLine("Isuck"); }
+            student_con.Close();
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
@@ -306,14 +307,14 @@ namespace FinalProj
             weight_con.Open();
             try
             {
-                foreach (DataGridViewRow row in dataGridView1.Rows)
+                for(int i = 0; i < dataGridView1.Rows.Count-1; i++)
                 {
-                    
+                    DataGridViewRow row = dataGridView1.Rows[i];
                     String ln = (String)row.Cells["lastName"].Value;
                     String fn = (String)row.Cells["firstName"].Value;
-                    Debug.WriteLine(ln + fn);
+                    Debug.WriteLine("NAME:" + ln + fn);
                     DataTable dt = new DataTable();
-                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM classes" + ln + fn , student_con);
+                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM classes" + ln + fn, student_con);
                     sqlData.Fill(dt);
                     double total = 0;
                     int count = 0;
@@ -357,8 +358,6 @@ namespace FinalProj
                     command.ExecuteNonQuery();
                     Debug.WriteLine("Current GPA: " + Math.Round(total, 3));
                 }
-
-                refreshStudentTable();
             }
             catch (Exception e1)
             {
@@ -366,6 +365,7 @@ namespace FinalProj
             }
             student_con.Close();
             weight_con.Close();
+            refreshStudentTable();
         }
     }
 }
