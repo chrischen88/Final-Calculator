@@ -328,6 +328,7 @@ namespace FinalProj
                             int tier = Convert.ToInt32(r["tier"]);
                             int average = Convert.ToInt32(r["average"]);
                             String exempted = (String)r["exempted"];
+                            //hi
                             if (average > 70)
                             {
                                 if (exempted.Equals("NO"))
