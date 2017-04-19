@@ -56,12 +56,16 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.firstNameText = new System.Windows.Forms.Label();
             this.lastNameText = new System.Windows.Forms.Label();
+            this.labelAdded = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(12, 33);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -334,11 +338,22 @@
             this.lastNameText.Text = "Last: ";
             this.lastNameText.Visible = false;
             // 
+            // labelAdded
+            // 
+            this.labelAdded.AutoSize = true;
+            this.labelAdded.Location = new System.Drawing.Point(547, 205);
+            this.labelAdded.Name = "labelAdded";
+            this.labelAdded.Size = new System.Drawing.Size(41, 13);
+            this.labelAdded.TabIndex = 28;
+            this.labelAdded.Text = "Added!";
+            this.labelAdded.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 347);
+            this.Controls.Add(this.labelAdded);
             this.Controls.Add(this.lastNameText);
             this.Controls.Add(this.firstNameText);
             this.Controls.Add(this.textBox6);
@@ -405,6 +420,7 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label firstNameText;
         private System.Windows.Forms.Label lastNameText;
+        private System.Windows.Forms.Label labelAdded;
     }
 }
 

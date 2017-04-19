@@ -249,6 +249,22 @@ namespace FinalProj
                 catch (Exception e1)
                 { }
             }
+            else if(addClass.Visible)
+            {
+                student_con.Open();
+                try
+                {
+                    String fn = firstNameText.Text.Split(new char[1] { (char)32 })[1];
+                    String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
+                    SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM classes"+ln+fn+" WHERE class LIKE '%" + textBox4.Text + "%'", student_con);
+                    DataTable dt = new DataTable();
+                    sqlData.Fill(dt);
+                    this.dataGridView1.DataSource = dt;
+                }
+                catch (Exception e1)
+                { }
+                student_con.Close();
+            }
         }
 
         private void CancelAverage_Click(object sender, EventArgs e)
@@ -294,11 +310,19 @@ namespace FinalProj
                     }
                     Exempted1.Checked = false;
                     Exempted2.Checked = false;
+                    Stopwatch sw = new Stopwatch();
+                    labelAdded.Visible = true;
+                    sw.Start();
+                    if(sw.ElapsedMilliseconds > 3000)
+                    {
+                        labelAdded.Visible = false;
+                        sw.Stop();
+                    }
                 }
-                student_con.Close();
             }
             catch (Exception e1)
             { }
+            student_con.Close();
         }
 
         private void calculateGPA()
@@ -312,23 +336,19 @@ namespace FinalProj
                     DataGridViewRow row = dataGridView1.Rows[i];
                     String ln = (String)row.Cells["lastName"].Value;
                     String fn = (String)row.Cells["firstName"].Value;
-                    Debug.WriteLine("NAME:" + ln + fn);
                     DataTable dt = new DataTable();
                     SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM classes" + ln + fn, student_con);
                     sqlData.Fill(dt);
                     double total = 0;
                     int count = 0;
                     double totalCredits = 0;
-                    Debug.WriteLine("hell");
                     if (dt.Rows.Count > 0)
                     {
-                        Debug.WriteLine("hell yah");
                         foreach (DataRow r in dt.Rows)
                         {
                             int tier = Convert.ToInt32(r["tier"]);
                             int average = Convert.ToInt32(r["average"]);
                             String exempted = (String)r["exempted"];
-                            //hi
                             if (average > 70)
                             {
                                 if (exempted.Equals("NO"))
