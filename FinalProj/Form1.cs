@@ -310,14 +310,13 @@ namespace FinalProj
                     }
                     Exempted1.Checked = false;
                     Exempted2.Checked = false;
-                    Stopwatch sw = new Stopwatch();
                     labelAdded.Visible = true;
-                    sw.Start();
-                    if(sw.ElapsedMilliseconds > 3000)
+                    System.Timers.Timer t = new System.Timers.Timer(3000) { Enabled = true };
+                    t.Elapsed += (sender1, args) =>
                     {
-                        labelAdded.Visible = false;
-                        sw.Stop();
-                    }
+                        this.labelAdded.Visible = false;
+                        t.Dispose();
+                    };
                 }
             }
             catch (Exception e1)
