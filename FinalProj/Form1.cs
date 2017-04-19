@@ -87,7 +87,7 @@ namespace FinalProj
                 command = new SQLiteCommand("INSERT INTO students(lastName, firstName, grade, GPA, credits) VALUES ('" + textBox2.Text + "', '" + textBox1.Text + "' , " + textBox3.Text +
                     ", '" + 0.0 + "', " + 0 + ")", student_con);
                 command.ExecuteNonQuery();
-                command = new SQLiteCommand("CREATE TABLE classes" + textBox2.Text + textBox1.Text + " (class TEXT, average INT, tier INT, exempted TEXT)", student_con);
+                command = new SQLiteCommand("CREATE TABLE classes" + textBox2.Text + textBox1.Text + " (class TEXT, average INT, tier INT, exempted TEXT, credit NUMERIC)", student_con);
                 command.ExecuteNonQuery();
                 student_con.Close();
             }
@@ -298,14 +298,14 @@ namespace FinalProj
                     DataGridViewRow r = dataGridView1.SelectedRows[0];
                     if (textBox5.Text.Length > 0)
                     {
-                        command = new SQLiteCommand("INSERT INTO classes" + ln + fn + "(class, average, tier, exempted) VALUES ('" + r.Cells["className"].Value + " Semester 1', " + textBox5.Text + ", "
-                            + r.Cells["tier"].Value + ", '" + (Exempted1.Checked ? "YES" : "NO") + "')", student_con);
+                        command = new SQLiteCommand("INSERT INTO classes" + ln + fn + "(class, average, tier, exempted, credit) VALUES ('" + r.Cells["className"].Value + " Semester 1', " + textBox5.Text + ", "
+                            + r.Cells["tier"].Value + ", '" + (Exempted1.Checked ? "YES" : "NO") + "', " + (Convert.ToInt64(r.Cells["credit"].Value) / 2.0) + ")", student_con);
                         command.ExecuteNonQuery();
                     }
                     if (textBox6.Text.Length > 0)
                     {
-                        command = new SQLiteCommand("INSERT INTO classes" + ln + fn + "(class, average, tier, exempted) VALUES ('" + r.Cells["className"].Value + " Semester 2', " + textBox6.Text + ", "
-                            + r.Cells["tier"].Value + ", '" + (Exempted2.Checked ? "YES" : "NO") + "')", student_con);
+                        command = new SQLiteCommand("INSERT INTO classes" + ln + fn + "(class, average, tier, exempted, credit) VALUES ('" + r.Cells["className"].Value + " Semester 2', " + textBox6.Text + ", "
+                            + r.Cells["tier"].Value + ", '" + (Exempted2.Checked ? "YES" : "NO") + "', " + (Convert.ToInt64(r.Cells["credit"].Value) / 2.0) + ")", student_con);
                         command.ExecuteNonQuery();
                     }
                     Exempted1.Checked = false;
@@ -331,7 +331,7 @@ namespace FinalProj
             weight_con.Open();
             try
             {
-                for(int i = 0; i < dataGridView1.Rows.Count-1; i++)
+                for(int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
                     DataGridViewRow row = dataGridView1.Rows[i];
                     String ln = (String)row.Cells["lastName"].Value;
