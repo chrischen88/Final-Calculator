@@ -170,6 +170,8 @@ namespace FinalProj
             lastNameText.Visible = false;
             firstNameText.Text = "First: ";
             lastNameText.Text = "Last: ";
+            textBox4.Text = "";
+            calculateGPA();
         }
 
         private void addClass_Click(object sender, EventArgs e)
@@ -184,6 +186,7 @@ namespace FinalProj
             CancelAverage.Visible = true;
             addClass.Visible = false;
             deleteClass.Visible = false;
+            textBox4.Text = "";
             backtoStudents.Visible = false;
             class_con.Open();
             SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM ClassWeights", class_con);
@@ -280,7 +283,7 @@ namespace FinalProj
             addClass.Visible = true;
             deleteClass.Visible = true;
             backtoStudents.Visible = true;
-            textBox5.Text = textBox6.Text = "";
+            textBox5.Text = textBox6.Text = textBox4.Text = "";
             String fn = firstNameText.Text.Split(new char[1] { (char)32 })[1];
             String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
             refreshStudentClassTable(ln, fn);
@@ -310,17 +313,20 @@ namespace FinalProj
                     }
                     Exempted1.Checked = false;
                     Exempted2.Checked = false;
-                    labelAdded.Visible = true;
+                    /*labelAdded.Visible = true;
                     System.Timers.Timer t = new System.Timers.Timer(3000) { Enabled = true };
                     t.Elapsed += (sender1, args) =>
                     {
                         this.labelAdded.Visible = false;
                         t.Dispose();
-                    };
+                    };*/
                 }
             }
             catch (Exception e1)
             { }
+            textBox5.Text = "";
+            textBox6.Text = "";
+            Exempted1.Checked = Exempted2.Checked = false;
             student_con.Close();
         }
 
@@ -348,23 +354,28 @@ namespace FinalProj
                             int tier = Convert.ToInt32(r["tier"]);
                             int average = Convert.ToInt32(r["average"]);
                             String exempted = (String)r["exempted"];
-                            if (average > 70)
+                            double credit = Convert.ToDouble(r["credit"]);
+                            while(credit > 0)
                             {
-                                if (exempted.Equals("NO"))
+                                if (average > 70)
                                 {
-                                    if (average >= 97) command = new SQLiteCommand("select g97 from averages where tier = " + tier, weight_con);
-                                    else if (average >= 93) command = new SQLiteCommand("SELECT g93 FROM averages WHERE tier = " + tier, weight_con);
-                                    else if (average >= 90) command = new SQLiteCommand("SELECT g90 FROM averages WHERE tier = " + tier, weight_con);
-                                    else if (average >= 87) command = new SQLiteCommand("SELECT g87 FROM averages WHERE tier = " + tier, weight_con);
-                                    else if (average >= 83) command = new SQLiteCommand("SELECT g83 FROM averages WHERE tier = " + tier, weight_con);
-                                    else if (average >= 80) command = new SQLiteCommand("SELECT g80 FROM averages WHERE tier = " + tier, weight_con);
-                                    else if (average >= 77) command = new SQLiteCommand("SELECT g77 FROM averages WHERE tier = " + tier, weight_con);
-                                    else if (average >= 73) command = new SQLiteCommand("SELECT g73 FROM averages WHERE tier = " + tier, weight_con);
-                                    else command = new SQLiteCommand("SELECT g71 FROM averages WHERE tier = " + tier, weight_con);
-                                    total += Convert.ToDouble(command.ExecuteScalar());
-                                    count++;
+                                    if (exempted.Equals("NO"))
+                                    {
+                                        if (average >= 97) command = new SQLiteCommand("select g97 from averages where tier = " + tier, weight_con);
+                                        else if (average >= 93) command = new SQLiteCommand("SELECT g93 FROM averages WHERE tier = " + tier, weight_con);
+                                        else if (average >= 90) command = new SQLiteCommand("SELECT g90 FROM averages WHERE tier = " + tier, weight_con);
+                                        else if (average >= 87) command = new SQLiteCommand("SELECT g87 FROM averages WHERE tier = " + tier, weight_con);
+                                        else if (average >= 83) command = new SQLiteCommand("SELECT g83 FROM averages WHERE tier = " + tier, weight_con);
+                                        else if (average >= 80) command = new SQLiteCommand("SELECT g80 FROM averages WHERE tier = " + tier, weight_con);
+                                        else if (average >= 77) command = new SQLiteCommand("SELECT g77 FROM averages WHERE tier = " + tier, weight_con);
+                                        else if (average >= 73) command = new SQLiteCommand("SELECT g73 FROM averages WHERE tier = " + tier, weight_con);
+                                        else command = new SQLiteCommand("SELECT g71 FROM averages WHERE tier = " + tier, weight_con);
+                                        total += Convert.ToDouble(command.ExecuteScalar());
+                                        count++;
+                                    }
+                                    totalCredits += 0.5;
                                 }
-                                totalCredits += 0.5;
+                                credit -= .5;
                             }
                         }
                         if (count > 0)
