@@ -60,6 +60,7 @@
             this.labelAdded = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.gradeLevel = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -366,11 +367,22 @@
             this.gradeLevel.TabIndex = 29;
             this.gradeLevel.Visible = false;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(544, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Grade:";
+            this.label5.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 347);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.gradeLevel);
             this.Controls.Add(this.labelAdded);
             this.Controls.Add(this.lastNameText);
@@ -442,6 +454,7 @@
         private System.Windows.Forms.Label labelAdded;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox gradeLevel;
+        private System.Windows.Forms.Label label5;
     }
 }
 
