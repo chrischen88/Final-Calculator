@@ -81,7 +81,7 @@ namespace FinalProj
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            if (label1.Visible)
+            if (textBox1.Text.Length > 0 && textBox2.Text.Length > 0 && textBox3.Text.Length > 0 && label1.Visible)
             {
                 student_con.Open();
                 command = new SQLiteCommand("INSERT INTO students(lastName, firstName, grade, GPA, credits) VALUES ('" + textBox2.Text + "', '" + textBox1.Text + "' , " + textBox3.Text +
@@ -313,7 +313,8 @@ namespace FinalProj
                     }
                     Exempted1.Checked = false;
                     Exempted2.Checked = false;
-                    
+                    labelAdded.Visible = true;
+                    timer1.Enabled = true;
                 }
             }
             catch (Exception e1)
@@ -392,6 +393,36 @@ namespace FinalProj
             student_con.Close();
             weight_con.Close();
             refreshStudentTable();
+        }
+
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            if(addStudent.Visible)
+            {
+                MessageBox.Show("Double Click on Student Name to Edit Grades", "Help");
+            }
+            else if(addClass.Visible)
+            {
+                MessageBox.Show("Use Add Class and Delete Class Buttons to Add or Remove", "Help");
+            }
+            else if(AddAverage.Visible)
+            {
+                MessageBox.Show("Click on Class to Select and Input Averages, Then Click Add", "Help");
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            labelAdded.Visible = false;
+            timer1.Enabled = false;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(textBox5.Visible)
+            {
+                textBox5.Focus();
+            }
         }
     }
 }

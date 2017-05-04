@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.addStudent = new System.Windows.Forms.Button();
             this.helpButton = new System.Windows.Forms.Button();
@@ -57,6 +58,8 @@
             this.firstNameText = new System.Windows.Forms.Label();
             this.lastNameText = new System.Windows.Forms.Label();
             this.labelAdded = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.gradeLevel = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,6 +74,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(485, 298);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // addStudent
@@ -91,6 +95,7 @@
             this.helpButton.TabIndex = 2;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // closeButton
             // 
@@ -218,7 +223,7 @@
             // 
             // addClass
             // 
-            this.addClass.Location = new System.Drawing.Point(504, 221);
+            this.addClass.Location = new System.Drawing.Point(506, 221);
             this.addClass.Name = "addClass";
             this.addClass.Size = new System.Drawing.Size(123, 23);
             this.addClass.TabIndex = 17;
@@ -229,7 +234,7 @@
             // 
             // deleteClass
             // 
-            this.deleteClass.Location = new System.Drawing.Point(505, 250);
+            this.deleteClass.Location = new System.Drawing.Point(506, 250);
             this.deleteClass.Name = "deleteClass";
             this.deleteClass.Size = new System.Drawing.Size(123, 23);
             this.deleteClass.TabIndex = 18;
@@ -348,11 +353,25 @@
             this.labelAdded.Text = "Added!";
             this.labelAdded.Visible = false;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // gradeLevel
+            // 
+            this.gradeLevel.Location = new System.Drawing.Point(589, 10);
+            this.gradeLevel.Name = "gradeLevel";
+            this.gradeLevel.Size = new System.Drawing.Size(39, 20);
+            this.gradeLevel.TabIndex = 29;
+            this.gradeLevel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 347);
+            this.Controls.Add(this.gradeLevel);
             this.Controls.Add(this.labelAdded);
             this.Controls.Add(this.lastNameText);
             this.Controls.Add(this.firstNameText);
@@ -421,6 +440,8 @@
         private System.Windows.Forms.Label firstNameText;
         private System.Windows.Forms.Label lastNameText;
         private System.Windows.Forms.Label labelAdded;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox gradeLevel;
     }
 }
 
