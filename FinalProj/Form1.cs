@@ -136,6 +136,7 @@ namespace FinalProj
                 DataGridViewRow r = dataGridView1.SelectedRows[0];
                 firstNameText.Text = firstNameText.Text + r.Cells["firstName"].Value.ToString();
                 lastNameText.Text = lastNameText.Text + r.Cells["lastName"].Value.ToString();
+                String grade = "" + r.Cells["grade"].Value.ToString();
                 refreshStudentClassTable(r.Cells["lastName"].Value.ToString(), r.Cells["firstName"].Value.ToString());
                 firstNameText.Visible = true;
                 lastNameText.Visible = true;
@@ -154,6 +155,9 @@ namespace FinalProj
                 confirmButton.Visible = false;
                 cancelButton.Visible = false;
                 textBox1.Text = textBox2.Text = textBox3.Text = "";
+                gradeLevel.Visible = true;
+                label5.Visible = true;
+                gradeLevel.Text = grade;
             }
         }
 
@@ -171,6 +175,9 @@ namespace FinalProj
             firstNameText.Text = "First: ";
             lastNameText.Text = "Last: ";
             textBox4.Text = "";
+            gradeLevel.Text = "";
+            gradeLevel.Visible = false;
+            label5.Visible = false;
             calculateGPA();
         }
 
