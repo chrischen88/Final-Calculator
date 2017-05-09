@@ -163,6 +163,23 @@ namespace FinalProj
 
         private void button5_Click(object sender, EventArgs e)
         {
+            String fn = firstNameText.Text.Split(new char[1] { (char)32 })[1];
+            String ln = lastNameText.Text.Split(new char[1] { (char)32 })[1];
+            try
+            {
+                student_con.Open();
+                if(Convert.ToInt64(gradeLevel.Text) > 8)
+                {
+                    command = new SQLiteCommand("UPDATE students SET grade = " + gradeLevel.Text + " WHERE firstName = '" + fn + "' and lastName = '" + ln + "'", student_con);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e1)
+            { }
+            finally
+            {
+                student_con.Close();
+            }
             refreshStudentTable();
             backtoStudents.Visible = false;
             addStudent.Visible = true;
@@ -175,10 +192,10 @@ namespace FinalProj
             firstNameText.Text = "First: ";
             lastNameText.Text = "Last: ";
             textBox4.Text = "";
+            calculateGPA();
             gradeLevel.Text = "";
             gradeLevel.Visible = false;
             label5.Visible = false;
-            calculateGPA();
         }
 
         private void addClass_Click(object sender, EventArgs e)
@@ -190,6 +207,8 @@ namespace FinalProj
             Exempted1.Visible = true;
             Exempted2.Visible = true;
             AddAverage.Visible = true;
+            gradeLevel.Visible = false;
+            label5.Visible = false;
             CancelAverage.Visible = true;
             addClass.Visible = false;
             deleteClass.Visible = false;
@@ -283,6 +302,8 @@ namespace FinalProj
             Semester2Grade.Visible = false;
             textBox6.Visible = false;
             textBox5.Visible = false;
+            gradeLevel.Visible = true;
+            label5.Visible = true;
             Exempted1.Visible = false;
             Exempted2.Visible = false;
             AddAverage.Visible = false;
