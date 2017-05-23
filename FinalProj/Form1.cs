@@ -51,6 +51,12 @@ namespace FinalProj
             DataTable table = new DataTable();
             sqlData.Fill(table);
             this.dataGridView1.DataSource = table;
+            this.dataGridView1.Columns["ID"].DisplayIndex = 5;
+            this.dataGridView1.Columns["class"].DisplayIndex = 0;
+            this.dataGridView1.Columns["average"].DisplayIndex = 1;
+            this.dataGridView1.Columns["tier"].DisplayIndex = 2;
+            this.dataGridView1.Columns["exempted"].DisplayIndex = 3;
+            this.dataGridView1.Columns["credit"].DisplayIndex = 4;
             student_con.Close();
         }
 
@@ -87,7 +93,7 @@ namespace FinalProj
                 command = new SQLiteCommand("INSERT INTO students(lastName, firstName, grade, GPA, credits) VALUES ('" + textBox2.Text + "', '" + textBox1.Text + "' , " + textBox3.Text +
                     ", '" + 0.0 + "', " + 0 + ")", student_con);
                 command.ExecuteNonQuery();
-                command = new SQLiteCommand("CREATE TABLE classes" + textBox2.Text + textBox1.Text + " (class TEXT, average INT, tier INT, exempted TEXT, credit NUMERIC)", student_con);
+                command = new SQLiteCommand("CREATE TABLE classes" + textBox2.Text + textBox1.Text + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, class TEXT, average INT, tier INT, exempted TEXT, credit NUMERIC)", student_con);
                 command.ExecuteNonQuery();
                 student_con.Close();
             }
@@ -214,6 +220,7 @@ namespace FinalProj
             deleteClass.Visible = false;
             textBox4.Text = "";
             backtoStudents.Visible = false;
+            MissingClass.Visible = true;
             class_con.Open();
             SQLiteDataAdapter sqlData = new SQLiteDataAdapter("SELECT * FROM ClassWeights", class_con);
             DataTable dt = new DataTable();
@@ -233,7 +240,8 @@ namespace FinalProj
                 {
                     foreach (DataGridViewRow r in dataGridView1.SelectedRows)
                     {
-                        command = new SQLiteCommand("DELETE FROM classes" + ln + fn + " WHERE class = '" + r.Cells["class"].Value + "' AND average = " + r.Cells["average"].Value, student_con);
+                        command = new SQLiteCommand("DELETE FROM classes" + ln + fn + " WHERE class = '" + r.Cells["class"].Value + "' AND average = " + r.Cells["average"].Value + 
+                            " AND ID = " + r.Cells["ID"], student_con);
                         command.ExecuteNonQuery();
                     }
                     SQLiteDataAdapter sqlData = new SQLiteDataAdapter("select * from classes"+ln+fn, student_con);
@@ -309,6 +317,7 @@ namespace FinalProj
             AddAverage.Visible = false;
             CancelAverage.Visible = false;
             addClass.Visible = true;
+            MissingClass.Visible = false;
             deleteClass.Visible = true;
             backtoStudents.Visible = true;
             textBox5.Text = textBox6.Text = textBox4.Text = "";
@@ -411,7 +420,6 @@ namespace FinalProj
                     command.ExecuteNonQuery();
                     command = new SQLiteCommand("UPDATE students SET credits = " + totalCredits + " WHERE firstName = '" + fn + "' AND lastName = '" + ln + "'", student_con);
                     command.ExecuteNonQuery();
-                    Debug.WriteLine("Current GPA: " + Math.Round(total, 3));
                 }
             }
             catch (Exception e1)
@@ -451,6 +459,11 @@ namespace FinalProj
             {
                 textBox5.Focus();
             }
+        }
+
+        private void MissingClass_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

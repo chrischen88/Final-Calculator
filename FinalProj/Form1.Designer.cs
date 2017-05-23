@@ -61,6 +61,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.gradeLevel = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.MissingClass = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -307,9 +308,9 @@
             // 
             // CancelAverage
             // 
-            this.CancelAverage.Location = new System.Drawing.Point(506, 308);
+            this.CancelAverage.Location = new System.Drawing.Point(505, 308);
             this.CancelAverage.Name = "CancelAverage";
-            this.CancelAverage.Size = new System.Drawing.Size(122, 23);
+            this.CancelAverage.Size = new System.Drawing.Size(123, 23);
             this.CancelAverage.TabIndex = 25;
             this.CancelAverage.Text = "Cancel";
             this.CancelAverage.UseVisualStyleBackColor = true;
@@ -377,11 +378,23 @@
             this.label5.Text = "Grade:";
             this.label5.Visible = false;
             // 
+            // MissingClass
+            // 
+            this.MissingClass.Location = new System.Drawing.Point(506, 250);
+            this.MissingClass.Name = "MissingClass";
+            this.MissingClass.Size = new System.Drawing.Size(122, 23);
+            this.MissingClass.TabIndex = 31;
+            this.MissingClass.Text = "Missing Class?";
+            this.MissingClass.UseVisualStyleBackColor = true;
+            this.MissingClass.Visible = false;
+            this.MissingClass.Click += new System.EventHandler(this.MissingClass_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 347);
+            this.Controls.Add(this.MissingClass);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.gradeLevel);
             this.Controls.Add(this.labelAdded);
@@ -455,6 +468,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox gradeLevel;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button MissingClass;
     }
 }
 
